@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Zass</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="lorem_hipster">Semiotics green juice trust fund, sriracha tattooed cornhole kale chips crucifix narwhal irony. Cred brunch authentic, health goth four dollar toast mustache thundercats twee vegan +1 disrupt pork belly paleo franzen. Portland messenger bag lumbersexual knausgaard 8-bit intelligentsia. Cardigan flexitarian green juice artisan 90\'s seitan. Offal fanny pack fingerstache, normcore lumbersexual +1 post-ironic chicharrones sriracha pork belly marfa jean shorts. Mustache YOLO cornhole listicle, +1 sustainable intelligentsia drinking vinegar taxidermy beard. Vice mixtape flexitarian, health goth raw denim asymmetrical poutine meh thundercats banh mi DIY taxidermy.\nDisrupt banh mi lo-fi forage, sustainable yr keffiyeh heirloom wolf. Man braid vegan VHS gastropub green juice. Cold-pressed humblebrag meh, dreamcatcher williamsburg etsy keffiyeh. Next level dreamcatcher organic, listicle ennui bespoke kickstarter vinyl migas swag. Mixtape williamsburg fap shoreditch, tofu blue bottle lomo waistcoat letterpress. Four loko venmo letterpress crucifix trust fund street art blue bottle, vice +1 williamsburg tilde cardigan affogato. Wayfarers typewriter shoreditch food truck, four dollar toast tofu synth.\nEthical kinfolk bicycle rights, hammock food truck dreamcatcher pabst DIY tattooed artisan. Bitters squid gentrify, biodiesel mustache vinyl mlkshk hammock kogi iPhone. Next level fanny pack kombucha meditation, vice shoreditch brunch pickled tote bag salvia ramps. Blog plaid pork belly banh mi artisan, flannel skateboard pickled selvage raw denim dreamcatcher portland kogi. Twee ennui fashion axe messenger bag, fanny pack ugh artisan schlitz literally whatever keffiyeh. Ennui mixtape dreamcatcher seitan cornhole organic bitters, normcore helvetica. Pitchfork intelligentsia 3 wolf moon, umami plaid semiotics bicycle rights literally fingerstache gluten-free.\nGreen juice pug lo-fi, chambray keffiyeh poutine letterpress post-ironic. Fap fingerstache lumbersexual, squid cray artisan franzen hammock. Vinyl gentrify pickled, microdosing stumptown listicle cronut cardigan mumblecore post-ironic keytar aesthetic pug lo-fi yuccie. Celiac street art cardigan, scenester kombucha literally wayfarers lo-fi gluten-free everyday carry bitters pug tattooed pop-up master cleanse. Stumptown seitan next level, cray franzen artisan echo park blog occupy pickled four dollar toast jean shorts food truck sustainable. Hella 8-bit chartreuse bushwick, twee +1 chillwave yr you probably haven\'t heard of them scenester pour-over. Meggings etsy franzen raw denim chartreuse, chambray tousled migas hella put a bird on it.</string>
+    <string name="lorem_hipster_short">Semiotics green juice trust fund, sriracha tattooed cornhole kale chips crucifix narwhal irony. Cred brunch authentic, health goth four dollar toast mustache thundercats twee vegan +1 disrupt pork belly paleo franzen. Portland messenger bag lumbersexual knausgaard 8-bit intelligentsia.</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="save">Save</string>
+
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="server_client_id">702857968898-li0r84j540qt0k9bcvhmclamdolfsvle.apps.googleusercontent.com</string>
+
+
+
+
+</resources>

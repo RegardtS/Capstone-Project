@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true"
+    tools:context=".UI.DetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:elevation="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            >
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="start"
+                android:hint="Title"
+                android:id="@+id/txtDetailTitle"
+
+                android:inputType="textCapSentences"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/primary_text"
+                android:typeface="monospace"
+
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="36dp"
+                android:paddingBottom="36dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/txtDetailHashtag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:inputType="textCapSentences|textMultiLine"
+
+                    android:singleLine="true"
+                    android:text="#"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/secondary_text"
+                    android:typeface="monospace"
+                    android:imeOptions="actionDone"
+
+
+                    />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <EditText
+            android:elevation="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:gravity="start"
+            android:hint="Note"
+            android:inputType="textCapSentences|textMultiLine"
+            android:paddingBottom="36dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="36dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+
+            android:textColor="@color/primary_text"
+            android:typeface="monospace"
+            android:id="@+id/txtDetailNote"
+
+            >
+
+            <requestFocus />
+
+        </EditText>
+
+
+    </LinearLayout>
+
+
+</ScrollView>
