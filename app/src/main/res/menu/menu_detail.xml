@@ -8,6 +8,14 @@
         android:title="@string/action_settings"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_action_settings_white"/>
+
+<item
+        android:id="@+id/action_save"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_save"/>
+
     <item
         android:id="@+id/action_play"
         android:orderInCategory="100"

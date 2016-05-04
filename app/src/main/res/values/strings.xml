@@ -28,7 +28,10 @@
 
     <string name="server_client_id">702857968898-li0r84j540qt0k9bcvhmclamdolfsvle.apps.googleusercontent.com</string>
 
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>

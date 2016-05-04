@@ -55,7 +55,7 @@
                     android:inputType="textCapSentences|textMultiLine"
 
                     android:singleLine="true"
-                    android:text="#"
+                    android:hint="#Important"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/secondary_text"
                     android:typeface="monospace"
