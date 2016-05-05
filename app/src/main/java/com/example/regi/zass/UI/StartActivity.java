@@ -13,7 +13,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String id = SharedPrefsUtils.getStringPreference(getApplicationContext(), Constants.USERID);
+        String id = SharedPrefsUtils.getStringPreference(getApplicationContext(), Constants.USER_ID);
 
         if (id == null || id.isEmpty()){
             startActivity(new Intent(StartActivity.this,LoginActivity.class));

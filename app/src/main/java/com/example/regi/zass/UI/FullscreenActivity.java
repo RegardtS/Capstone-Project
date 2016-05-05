@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.regi.zass.Model.Note;
 import com.example.regi.zass.R;
+import com.example.regi.zass.Utils.Constants;
 
 import org.w3c.dom.Text;
 
@@ -128,7 +129,7 @@ public class FullscreenActivity extends AppCompatActivity {
         }
 
 
-        currentNote = getIntent().getParcelableExtra("currentNote");
+        currentNote = getIntent().getParcelableExtra(Constants.CURRENT_NOTE);
 
 
 
@@ -136,6 +137,7 @@ public class FullscreenActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(currentNote.getReadingTitle());
         }
 
         mVisible = true;

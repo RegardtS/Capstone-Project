@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.regi.zass.Model.Note;
 import com.example.regi.zass.R;
+import com.example.regi.zass.Utils.Constants;
 
 public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
@@ -32,10 +33,10 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        if (getIntent().getParcelableExtra("currentNote") != null) {
-            currentNote = getIntent().getParcelableExtra("currentNote");
+        if (getIntent().getParcelableExtra(Constants.CURRENT_NOTE) != null) {
+            currentNote = getIntent().getParcelableExtra(Constants.CURRENT_NOTE);
         }else{
-            Toast.makeText(getApplicationContext(),"Unable to read note",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.unable_to_read_note,Toast.LENGTH_LONG).show();
             finish();
         }
 
@@ -127,7 +128,7 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
 
     private void updateNote(){
         Intent data = new Intent();
-        data.putExtra("currentNote",currentNote);
+        data.putExtra(Constants.CURRENT_NOTE,currentNote);
         setResult(Activity.RESULT_OK, data);
         finish();
     }

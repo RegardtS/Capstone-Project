@@ -37,9 +37,9 @@ public class DetailActivity extends AppCompatActivity {
         tvHashtag = (TextView) findViewById(R.id.txtDetailHashtag);
         tvNote = (TextView) findViewById(R.id.txtDetailNote);
 
-        if (getIntent().getParcelableExtra("currentNote") != null) {
-            currentNote = getIntent().getParcelableExtra("currentNote");
-            key = getIntent().getStringExtra("key");
+        if (getIntent().getParcelableExtra(Constants.CURRENT_NOTE) != null) {
+            currentNote = getIntent().getParcelableExtra(Constants.CURRENT_NOTE);
+            key = getIntent().getStringExtra(Constants.NOTE_KEY);
             isEditing = true;
 
             tvHashtag.setText(currentNote.getTags());
@@ -70,13 +70,12 @@ public class DetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_play:
                 Intent temp2 = new Intent(DetailActivity.this, FullscreenActivity.class);
-                temp2.putExtra("currentNote",currentNote);
+                temp2.putExtra(Constants.CURRENT_NOTE,currentNote);
                 startActivity(temp2);
                 return true;
             case R.id.action_settings:
-                Log.wtf("regi",">> " + currentNote.getMargin());
                 Intent temp = new Intent(DetailActivity.this, SettingsActivity.class);
-                temp.putExtra("currentNote",currentNote);
+                temp.putExtra(Constants.CURRENT_NOTE,currentNote);
                 startActivityForResult(temp,418);
                 return true;
             case android.R.id.home:
@@ -93,12 +92,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 418 && resultCode == RESULT_OK){
-            Log.wtf("regi",">>>> OK" );
-
-
-            currentNote = data.getParcelableExtra("currentNote");
-            Log.wtf("regi",">> " + currentNote.getMargin());
-
+            currentNote = data.getParcelableExtra(Constants.CURRENT_NOTE);
         }
 
         super.onActivityResult(requestCode, resultCode, data);

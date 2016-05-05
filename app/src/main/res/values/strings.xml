@@ -32,6 +32,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="not_a_valid_email">Not a valid email</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="logging_in">Logging in...</string>
+    <string name="creating_account">Creating account...</string>
+    <string name="no_account">No account?</string>
+    <string name="login">Login</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="create_account">Create account</string>
+    <string name="unable_to_read_note">Unable to read note</string>
+    <string name="successfully_updated">Successfully updated</string>
+    <string name="successfully_created_new_note">Successfully created new note</string>
 
 
 </resources>

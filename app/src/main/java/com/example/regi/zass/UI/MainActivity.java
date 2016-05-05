@@ -2,19 +2,16 @@ package com.example.regi.zass.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.regi.zass.BuildConfig;
@@ -32,13 +29,8 @@ import com.example.regi.zass.Model.Note;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -77,7 +69,7 @@ public class MainActivity extends AppCompatActivity  {
 
         rv.setItemAnimator(new DefaultItemAnimator());
 
-        ref = new Firebase(Constants.FIREBASE_URL).child("activeList").child(SharedPrefsUtils.getStringPreference(getApplicationContext(),Constants.USERID));
+        ref = new Firebase(Constants.FIREBASE_URL).child("activeList").child(SharedPrefsUtils.getStringPreference(getApplicationContext(),Constants.USER_ID));
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,12 +94,13 @@ public class MainActivity extends AppCompatActivity  {
             public void populateViewHolder(NoteViewHolder chatMessageViewHolder, final Note currentNote, final int position) {
                 chatMessageViewHolder.nameText.setText(currentNote.getReadingTitle());
                 chatMessageViewHolder.messageText.setText(currentNote.getTags());
+                chatMessageViewHolder.dateText.setText(DateUtils.getTimeAgo(Long.valueOf(currentNote.getDateCreated())));
                 chatMessageViewHolder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent temp = new Intent(MainActivity.this, DetailActivity.class);
-                        temp.putExtra("currentNote",currentNote);
-                        temp.putExtra("key",mAdapter.getRef(position).getKey());
+                        temp.putExtra(Constants.CURRENT_NOTE,currentNote);
+                        temp.putExtra(Constants.NOTE_KEY,mAdapter.getRef(position).getKey());
                         startActivity(temp);
                     }
                 });
@@ -115,8 +108,8 @@ public class MainActivity extends AppCompatActivity  {
                     @Override
                     public boolean onLongClick(View v) {
                         Intent temp = new Intent(MainActivity.this, FullscreenActivity.class);
-                        temp.putExtra("currentNote",currentNote);
-                        temp.putExtra("key",mAdapter.getRef(position).getKey());
+                        temp.putExtra(Constants.CURRENT_NOTE,currentNote);
+                        temp.putExtra(Constants.NOTE_KEY,mAdapter.getRef(position).getKey());
                         startActivity(temp);
                         return false;
                     }
@@ -134,14 +127,15 @@ public class MainActivity extends AppCompatActivity  {
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView messageText;
         TextView nameText;
+        TextView dateText;
         RelativeLayout container;
 
         public NoteViewHolder(View itemView) {
             super(itemView);
             nameText = (TextView) itemView.findViewById(R.id.title);
             messageText = (TextView) itemView.findViewById(R.id.tag);
+            dateText = (TextView) itemView.findViewById(R.id.date);
             container = (RelativeLayout) itemView.findViewById(R.id.container);
-
         }
     }
 }

@@ -123,24 +123,24 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private boolean isValid(){
         if (TextUtils.isEmpty(etEmail.getText().toString()) || !android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()){
-            tlEmail.setError("Not a valid email");
+            tlEmail.setError(getString(R.string.not_a_valid_email));
             return false;
         }
 
         if (TextUtils.isEmpty(etPassword.getText().toString())){
-            tlPassword.setError("Invalid password");
+            tlPassword.setError(getString(R.string.invalid_password));
             return false;
         }
         return true;
     }
 
     private void tryLogin() {
-        createProgressbar("Logging in...");
+        createProgressbar(getString(R.string.logging_in));
         ref.authWithPassword(etEmail.getText().toString(), etPassword.getText().toString(), new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
                 progressDialog.dismiss();
-                SharedPrefsUtils.setStringPreference(getApplicationContext(),Constants.USERID,String.valueOf(authData.getUid()));
+                SharedPrefsUtils.setStringPreference(getApplicationContext(),Constants.USER_ID,String.valueOf(authData.getUid()));
                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 finish();
             }
@@ -154,12 +154,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void tryCreate() {
-        createProgressbar("Creating account...");
+        createProgressbar(getString(R.string.creating_account));
         ref.createUser(etEmail.getText().toString(), etPassword.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
                 progressDialog.dismiss();
-                SharedPrefsUtils.setStringPreference(getApplicationContext(),Constants.USERID,String.valueOf(result.get("uid")));
+                SharedPrefsUtils.setStringPreference(getApplicationContext(),Constants.USER_ID,String.valueOf(result.get("uid")));
                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 finish();
             }
@@ -243,12 +243,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void changeToLogin(boolean login) {
         if (login) {
             signInButton.setVisibility(View.VISIBLE);
-            textViewBottom.setText("No account?");
-            btnLogin.setText("Login");
+            textViewBottom.setText(R.string.no_account);
+            btnLogin.setText(R.string.login);
         } else {
             signInButton.setVisibility(View.GONE);
-            textViewBottom.setText("Already have an account?");
-            btnLogin.setText("Create account");
+            textViewBottom.setText(R.string.already_have_an_account);
+            btnLogin.setText(R.string.create_account);
         }
         etPassword.setText("");
         etEmail.setText("");
