@@ -5,34 +5,32 @@ import java.util.ArrayList;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
+import com.example.regi.zass.Model.Note;
 import com.example.regi.zass.R;
+import com.example.regi.zass.Utils.Constants;
 
-/**
- * If you are familiar with Adapter of ListView,this is the same as adapter
- * with few changes
- *
- */
 public class ListProvider implements RemoteViewsFactory {
-    private ArrayList<ListItem> listItemList = new ArrayList<ListItem>();
+    private ArrayList<Note> listItemList = new ArrayList<>();
     private Context context = null;
-    private int appWidgetId;
 
     public ListProvider(Context context, Intent intent) {
         this.context = context;
-        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
-        populateListItem();
-    }
-
-    private void populateListItem() {
-        for (int i = 0; i < 10; i++) {
-            ListItem listItem = new ListItem();
-            listItem.heading = "Heading" + i;
-            listItem.content = i + " This is the content of the app widget listview.Nice content though";
-            listItemList.add(listItem);
+        Cursor cursor = context.getContentResolver().query(Constants.CONTENT_URI, null, null, null, null);
+        try {
+            while (cursor.moveToNext()) {
+                Note note = new Note();
+                note.setReadingTitle(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_TITLE)));
+                note.setDateCreated(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_DATE)));
+                note.setTags(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_TAG)));
+                listItemList.add(note);
+            }
+        } finally {
+            cursor.close();
         }
 
     }
@@ -47,19 +45,12 @@ public class ListProvider implements RemoteViewsFactory {
         return position;
     }
 
-    /*
-     *Similar to getView of Adapter where instead of View
-     *we return RemoteViews
-     *
-     */
     @Override
     public RemoteViews getViewAt(int position) {
-        final RemoteViews remoteView = new RemoteViews(
-                context.getPackageName(), R.layout.app_widget_row);
-        ListItem listItem = listItemList.get(position);
-        remoteView.setTextViewText(R.id.heading, listItem.heading);
-        remoteView.setTextViewText(R.id.content, listItem.content);
-
+        final RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.app_widget_row);
+        Note note = listItemList.get(position);
+        remoteView.setTextViewText(R.id.heading, note.getReadingTitle());
+        remoteView.setTextViewText(R.id.content, note.getTags());
         return remoteView;
     }
 
@@ -80,15 +71,12 @@ public class ListProvider implements RemoteViewsFactory {
     }
 
     @Override
-    public void onCreate() {
-    }
+    public void onCreate() {}
 
     @Override
-    public void onDataSetChanged() {
-    }
+    public void onDataSetChanged() {}
 
     @Override
-    public void onDestroy() {
-    }
+    public void onDestroy() {}
 
 }

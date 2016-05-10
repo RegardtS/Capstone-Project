@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.lib.widget.verticalmarqueetextview.VerticalMarqueeTextView;
+
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,9 +25,12 @@ import android.widget.Toast;
 import com.example.regi.zass.Model.Note;
 import com.example.regi.zass.R;
 import com.example.regi.zass.Utils.Constants;
+import com.example.regi.zass.View.VerticalMarqueeTextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -140,57 +145,117 @@ public class FullscreenActivity extends AppCompatActivity {
             actionBar.setTitle(currentNote.getReadingTitle());
         }
 
+
+        init();
+
+
+
+
+    }
+    private void init(){
         mVisible = true;
-//        mControlsView = findViewById(R.id.fullscreen_content_controls);
+
         mContentView = findViewById(R.id.fullscreen_content);
 
 
-//        ((TextView )mContentView)
-
-//        final TextView tv = (TextView )mContentView;
-//        tv.setText(currentNote.getReadingText());
-
         vtv = (VerticalMarqueeTextView) findViewById(R.id.fullscreen_content);
-        vtv.setText(currentNote.getReadingText());
 
-//        100-500
-        vtv.setMarqueeSpeed(250);
-
-
-
-
-
-
-
+        setupScrollingText();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               toggle();
-            }
-        });
-
-
-
-
-
-
-
-
-        // Set up the user interaction to manually show or hide the system UI.
-        vtv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 toggle();
             }
         });
+    }
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-//        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+    private void setupScrollingText(){
+        vtv.stopMarquee();
+        vtv.setText(currentNote.getReadingText());
+        vtv.stopMarquee();
+//        100-500
+        int speed;
+        if (currentNote.getSpeed() == 5){
+            speed = 500;
+        }else if (currentNote.getSpeed() == 4){
+            speed = 400;
+        }else if (currentNote.getSpeed() == 3){
+            speed = 300;
+        }else if (currentNote.getSpeed() == 2){
+            speed = 200;
+        }else{
+            speed = 100;
+        }
+        vtv.setMarqueeSpeed(speed);
+        vtv.stopMarquee();
+
+        float textSize;
+        if (currentNote.getSize() == 5){
+            textSize = 56f;
+        }else if (currentNote.getSpeed() == 4){
+            textSize = 48f;
+        }else if (currentNote.getSpeed() == 3){
+            textSize = 36f;
+        }else{
+            textSize = 28f;
+        }
+
+        vtv.setMarqueeSize(textSize);
+        vtv.shouldLoop(currentNote.isShouldLoop());
+        vtv.stopMarquee();
+
+
+        if (currentNote.getCountdown() > 0){
+            final TextView countdownTimer = (TextView) findViewById(R.id.countdownTimer);
+            countdownTimer.setVisibility(View.VISIBLE);
+            new CountDownTimer(5000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    //here you can have your logic to set text to edittext
+                    countdownTimer.setText(String.valueOf(millisUntilFinished / 1000));
+                }
+
+                public void onFinish() {
+                    countdownTimer.setVisibility(View.GONE);
+                    vtv.shouldPause(false);
+                }
+
+            }.start();
+        }else{
+            vtv.shouldPause(false);
+        }
+
+
+        if (currentNote.isShowTimer()){
+            final TextView timer = (TextView) findViewById(R.id.totalTimer);
+            timer.setVisibility(View.VISIBLE);
+            final int[] tester = {0};
+            new CountDownTimer(500000, 1000) {
+
+
+                
+                public void onTick(long millisUntilFinished) {
+                    update();
+                }
+
+                public void onFinish() {
+                    update();
+                    start();
+                }
+                private void update(){
+                    tester[0]++;
+                    int secs = tester[0];
+                    timer.setText("Total time: " + secs);
+                }
+
+            }.start();
+        }
+
+
+
+
     }
 
 

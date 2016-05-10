@@ -2,28 +2,27 @@ package com.example.regi.zass.Widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.example.regi.zass.R;
 
-/**
- * Implementation of App Widget functionality.
- */
 public class AppWidget extends AppWidgetProvider {
 
-    /*
-     * this method is called every 30 mins as specified on widgetinfo.xml
-     * this method is also called on every phone reboot
-     */
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        final int N = appWidgetIds.length;
-		/*int[] appWidgetIds holds ids of multiple instance of your widget
-		 * meaning you are placing more than one widgets on your homescreen*/
-        for (int i = 0; i < N; ++i) {
+
+        ComponentName thisWidget = new ComponentName(context, AppWidgetProvider.class);
+
+        int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+
+
+        for (int i = 0; i < appWidgetIds.length; ++i) {
             RemoteViews remoteViews = updateWidgetListView(context, appWidgetIds[i]);
             appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
         }
@@ -33,8 +32,7 @@ public class AppWidget extends AppWidgetProvider {
     private RemoteViews updateWidgetListView(Context context, int appWidgetId) {
 
         //which layout to show on widget
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.app_widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.app_widget);
 
         //RemoteViews Service needed to provide adapter for ListView
         Intent svcIntent = new Intent(context, WidgetService.class);

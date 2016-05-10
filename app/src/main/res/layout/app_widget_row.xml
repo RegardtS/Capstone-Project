@@ -3,26 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@android:color/black" >
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="8dip"
-        android:src="@mipmap/ic_launcher" />
+    android:background="@color/cardview_light_background" >
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_toRightOf="@id/imageView"
         android:singleLine="true"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/background_dark"
         android:text="Heading"/>
 
     <TextView
@@ -32,9 +23,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/heading"
         android:layout_marginTop="5dip"
-        android:layout_toRightOf="@id/imageView"
         android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/background_dark"
         android:text="Content"/>
 
 </RelativeLayout>
