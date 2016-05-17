@@ -17,7 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    signingConfigs {
+        release {
+            storeFile file("key_store.jks")
+            storePassword "password"
+            keyAlias "password"
+            keyPassword "password"
+        }
+    }
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
