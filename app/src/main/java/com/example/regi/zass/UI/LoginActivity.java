@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.regi.zass.R;
 import com.example.regi.zass.Utils.Constants;
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -93,10 +94,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-        Log.wtf("regi", "failed " + connectionResult);
-    }
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
 
     @Override
     public void onClick(View v) {
@@ -216,27 +214,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-//        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
-
-        Log.wtf("regi", "result is is " + result.isSuccess());
-        Log.wtf("regi", "L>>> " + result.getStatus().getStatusMessage());
-
-
         if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-//            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-
-            Log.wtf("regi", "name is " + acct.getDisplayName());
-            Log.wtf("regi", "> " + acct.getEmail());
-            Log.wtf("regi", ">> " + acct.getId()); //save this
-            Log.wtf("regi", ">> " + acct.getIdToken());
-
-
-//            updateUI(true);
+            SharedPrefsUtils.setStringPreference(getApplicationContext(),Constants.USER_ID,String.valueOf(acct.getId()));
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            finish();
         } else {
-            // Signed out, show unauthenticated UI.
-//            updateUI(false);
+            Toast.makeText(getApplicationContext(),getString(R.string.failed_to_sign_in) + result.getStatus(),Toast.LENGTH_LONG).show();
         }
     }
 

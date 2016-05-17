@@ -22,7 +22,7 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
 
     Note currentNote;
 
-    TextView tvSize,tvSpeed;
+    TextView tvSize, tvSpeed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,8 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
 
         if (getIntent().getParcelableExtra(Constants.CURRENT_NOTE) != null) {
             currentNote = getIntent().getParcelableExtra(Constants.CURRENT_NOTE);
-        }else{
-            Toast.makeText(getApplicationContext(), R.string.unable_to_read_note,Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.unable_to_read_note, Toast.LENGTH_LONG).show();
             finish();
         }
 
@@ -49,11 +49,11 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         sbSpeed.setOnSeekBarChangeListener(this);
         sbSize.setOnSeekBarChangeListener(this);
 
-        sbSize.setProgress(currentNote.getSize());
-        sbSpeed.setProgress(currentNote.getSpeed());
+        sbSize.setProgress(currentNote.getSize() + 1);
+        sbSpeed.setProgress(currentNote.getSpeed() + 1);
 
 
-        CheckBox cbLight,cbCountdown,cbLoop,cbMarker,cbTimer;
+        CheckBox cbLight, cbCountdown, cbLoop, cbMarker, cbTimer;
         cbLight = (CheckBox) findViewById(R.id.cbLight);
         cbCountdown = (CheckBox) findViewById(R.id.cbCountdown);
         cbLoop = (CheckBox) findViewById(R.id.cbLoop);
@@ -66,7 +66,7 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         cbMarker.setOnCheckedChangeListener(this);
         cbTimer.setOnCheckedChangeListener(this);
 
-        cbCountdown.setChecked(currentNote.getCountdown()>0? true: false);
+        cbCountdown.setChecked(currentNote.getCountdown() > 0 ? true : false);
         cbLight.setChecked(currentNote.isLight());
         cbLoop.setChecked(currentNote.isShouldLoop());
         cbMarker.setChecked(currentNote.isShowMarker());
@@ -88,27 +88,29 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (seekBar.getId() == R.id.sbSize){
-            tvSize.setText(String.valueOf(progress));
-            currentNote.setSize(Integer.parseInt(tvSize.getText().toString()));
-        }else{
-            tvSpeed.setText(String.valueOf(progress));
-            currentNote.setSpeed(Integer.parseInt(tvSpeed.getText().toString()));
+        if (seekBar.getId() == R.id.sbSize) {
+            tvSize.setText(String.valueOf(progress + 1));
+            currentNote.setSize(Integer.parseInt(tvSize.getText().toString() + 1));
+        } else {
+            tvSpeed.setText(String.valueOf(progress + 1));
+            currentNote.setSpeed(Integer.parseInt(tvSpeed.getText().toString() + 1));
         }
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
+    public void onStopTrackingTouch(SeekBar seekBar) {
+    }
 
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()){
+        switch (buttonView.getId()) {
             case R.id.cbCountdown:
-                currentNote.setCountdown(isChecked? 1:0);
+                currentNote.setCountdown(isChecked ? 1 : 0);
                 break;
             case R.id.cbLight:
                 currentNote.setLight(isChecked);
@@ -126,9 +128,9 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
     }
 
 
-    private void updateNote(){
+    private void updateNote() {
         Intent data = new Intent();
-        data.putExtra(Constants.CURRENT_NOTE,currentNote);
+        data.putExtra(Constants.CURRENT_NOTE, currentNote);
         setResult(Activity.RESULT_OK, data);
         finish();
     }

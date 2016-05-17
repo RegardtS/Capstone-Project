@@ -7,24 +7,48 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 import com.example.regi.zass.Utils.Constants;
 
 public class NoteDatabase extends SQLiteOpenHelper {
 
+    private static NoteDatabase instance;
 
     private static final String DATABASE_NAME = "NotesDatabase.db";
     private static final String TABLE_NAME = "telepromtnotes";
     private static final String SQL_CREATE = "CREATE TABLE " + TABLE_NAME +
             " (_id INTEGER PRIMARY KEY, " +
-            Constants.PROVIDER_TITLE+" TEXT , " +
-            Constants.PROVIDER_TAG+" TEXT , " +
-            Constants.PROVIDER_DATE+" TEXT )";
+            Constants.PROVIDER_TAGS + " TEXT , " +
+            Constants.PROVIDER_READINGTEXT + " TEXT , " +
+            Constants.PROVIDER_READINGTITLE + " TEXT , " +
+            Constants.PROVIDER_DATECREATED + " TEXT , " +
+            Constants.PROVIDER_KEY + " TEXT , " +
+            Constants.PROVIDER_SPEED + " INTEGER , " +
+            Constants.PROVIDER_SIZE + " INTEGER , " +
+            Constants.PROVIDER_COUNTDOWN + " INTEGER , " +
+            Constants.PROVIDER_MARGIN + " INTEGER , " +
+            Constants.PROVIDER_SHOWMARKER + " INTEGER , " +
+            Constants.PROVIDER_SHOWTIMER + " INTEGER , " +
+            Constants.PROVIDER_SHOULDLOOP + " INTEGER , " +
+            Constants.PROVIDER_LIGHT + " INTEGER )";
+
 
     private static final String SQL_DROP = "DROP TABLE IS EXISTS " + TABLE_NAME;
 
-    NoteDatabase(Context context) {
+    private NoteDatabase(Context context) {
         super(context, DATABASE_NAME, null, 1);
+    }
+
+    public static NoteDatabase getInstance(Context context){
+        if (instance == null){
+            instance = new NoteDatabase(context.getApplicationContext());
+        }
+        return  instance;
+    }
+
+    public void dropAll(){
+        getWritableDatabase().delete(TABLE_NAME,null,null);
     }
 
     @Override

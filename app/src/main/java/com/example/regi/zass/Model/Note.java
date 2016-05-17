@@ -17,6 +17,7 @@ public class Note implements Parcelable{
     private String readingText;
     private String readingTitle;
     private String dateCreated;
+    private String key;
 
     public Note() {}
 
@@ -34,6 +35,10 @@ public class Note implements Parcelable{
         this.readingTitle = readingTitle;
         this.dateCreated = dateCreated;
     }
+
+    public String getKey() {return key;}
+
+    public void setKey(String key) {this.key = key;}
 
     public String getDateCreated() {
         return dateCreated;

@@ -15,6 +15,10 @@ import android.widget.TextView;
 
 import com.example.regi.zass.R;
 
+//MODDED FROM
+//https://github.com/ayltai/Android-Lib-VerticalMarqueeTextView
+
+
 /**
  * A {@link TextView} with vertical marquee effect. The animation speed can be set using
  * {@link #setMarqueeSpeed(int)} or through XML declaration. By default, the marquee effect

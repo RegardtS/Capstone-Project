@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="@color/cardview_light_background" >
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/heading"
@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:singleLine="true"
+        android:textColor="@android:color/background_dark"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:textColor="@android:color/background_dark"
-        android:text="Heading"/>
+        tools:text="Heading" />
 
     <TextView
         android:id="@+id/content"
@@ -23,8 +23,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/heading"
         android:layout_marginTop="5dip"
-        android:textSize="14sp"
         android:textColor="@android:color/background_dark"
-        android:text="Content"/>
+        android:textSize="14sp"
+        tools:text="Content" />
 
 </RelativeLayout>

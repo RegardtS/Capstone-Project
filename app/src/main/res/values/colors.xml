@@ -50,4 +50,8 @@
     <color name="black_overlay">#66000000</color>
 
 
+    <color name="background_light">#0099cc</color>
+    <color name="background_dark">@android:color/background_dark</color>
+
+
 </resources>

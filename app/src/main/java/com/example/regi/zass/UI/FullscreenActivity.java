@@ -7,6 +7,7 @@ import android.graphics.Rect;
 
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -116,6 +118,7 @@ public class FullscreenActivity extends AppCompatActivity {
     Note currentNote = null;
     FloatingActionButton fab;
     VerticalMarqueeTextView vtv;
+    FrameLayout frameLayout;
 
 
 
@@ -128,7 +131,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
         if( getIntent().getExtras() == null){
             // THIS SHOULD NEVER HAPPEN
-            Toast.makeText(getApplicationContext(),"Unable to read note",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getString(R.string.unable_to_read_note),Toast.LENGTH_LONG).show();
             finish();
             return;
         }
@@ -207,9 +210,8 @@ public class FullscreenActivity extends AppCompatActivity {
         vtv.shouldLoop(currentNote.isShouldLoop());
         vtv.stopMarquee();
 
-
+        final TextView countdownTimer = (TextView) findViewById(R.id.countdownTimer);
         if (currentNote.getCountdown() > 0){
-            final TextView countdownTimer = (TextView) findViewById(R.id.countdownTimer);
             countdownTimer.setVisibility(View.VISIBLE);
             new CountDownTimer(5000, 1000) {
                 public void onTick(long millisUntilFinished) {
@@ -227,9 +229,8 @@ public class FullscreenActivity extends AppCompatActivity {
             vtv.shouldPause(false);
         }
 
-
+        final TextView timer = (TextView) findViewById(R.id.totalTimer);
         if (currentNote.isShowTimer()){
-            final TextView timer = (TextView) findViewById(R.id.totalTimer);
             timer.setVisibility(View.VISIBLE);
             final int[] tester = {0};
             new CountDownTimer(500000, 1000) {
@@ -247,11 +248,29 @@ public class FullscreenActivity extends AppCompatActivity {
                 private void update(){
                     tester[0]++;
                     int secs = tester[0];
-                    timer.setText("Total time: " + secs);
+                    timer.setText(getString(R.string.total_time_secs,secs));
                 }
 
             }.start();
         }
+
+        frameLayout = (FrameLayout) findViewById(R.id.framelayout);
+        if (currentNote.isLight()){
+            frameLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.background_light));
+            timer.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.jet));
+            countdownTimer.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.jet));
+        }else{
+            frameLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.background_dark));
+            timer.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.base));
+            countdownTimer.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.base));
+        }
+
+
+        if (!currentNote.isShowMarker()){
+            LinearLayout marker = (LinearLayout) findViewById(R.id.marker);
+            marker.setVisibility(View.GONE);
+        }
+
 
 
 

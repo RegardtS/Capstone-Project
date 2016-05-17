@@ -24,9 +24,9 @@ public class ListProvider implements RemoteViewsFactory {
         try {
             while (cursor.moveToNext()) {
                 Note note = new Note();
-                note.setReadingTitle(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_TITLE)));
-                note.setDateCreated(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_DATE)));
-                note.setTags(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_TAG)));
+                note.setReadingTitle(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_READINGTITLE)));
+                note.setDateCreated(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_DATECREATED)));
+                note.setTags(cursor.getString(cursor.getColumnIndex(Constants.PROVIDER_TAGS)));
                 listItemList.add(note);
             }
         } finally {

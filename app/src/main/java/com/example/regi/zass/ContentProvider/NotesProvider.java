@@ -10,15 +10,16 @@ import android.database.Cursor;
 import android.net.Uri;
 
 public class NotesProvider extends ContentProvider {
-    private static final String PROVIDER_NAME = "androidcontentproviderdemo.androidcontentprovider.images";
-    private static final Uri CONTENT_URI = Uri.parse("content://" + PROVIDER_NAME + "/images");
+    private static final String PROVIDER_NAME = "com.example.regi.zass.contentprovider.notes";
+    private static final Uri CONTENT_URI = Uri.parse("content://" + PROVIDER_NAME + "/notes");
     private static final int IMAGES = 1;
     private static final int IMAGE_ID = 2;
     private static final UriMatcher uriMatcher = getUriMatcher();
+
     private static UriMatcher getUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(PROVIDER_NAME, "images", IMAGES);
-        uriMatcher.addURI(PROVIDER_NAME, "images/#", IMAGE_ID);
+        uriMatcher.addURI(PROVIDER_NAME, "notes", IMAGES);
+        uriMatcher.addURI(PROVIDER_NAME, "notes/#", IMAGE_ID);
         return uriMatcher;
     }
 
@@ -28,9 +29,9 @@ public class NotesProvider extends ContentProvider {
     public String getType(Uri uri) {
         switch (uriMatcher.match(uri)) {
             case IMAGES:
-                return "vnd.android.cursor.dir/vnd.com.androidcontentproviderdemo.androidcontentprovider.provider.images";
+                return "com.example.regi.zass.contentprovider.notes.dir/com.example.regi.zass.contentprovider.notes";
             case IMAGE_ID:
-                return "vnd.android.cursor.item/vnd.com.androidcontentproviderdemo.androidcontentprovider.provider.images";
+                return "com.example.regi.zass.contentprovider.notes.item/com.example.regi.zass.contentprovider.notes";
 
         }
         return "";
@@ -39,14 +40,14 @@ public class NotesProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         Context context = getContext();
-        noteDatabase = new NoteDatabase(context);
+        noteDatabase = NoteDatabase.getInstance(context.getApplicationContext());
         return true;
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         String id = null;
-        if(uriMatcher.match(uri) == IMAGE_ID) {
+        if (uriMatcher.match(uri) == IMAGE_ID) {
             //Query is for one single image. Get the ID from the URI.
             id = uri.getPathSegments().get(1);
         }
@@ -59,7 +60,7 @@ public class NotesProvider extends ContentProvider {
             long id = noteDatabase.addNewNote(values);
             Uri returnUri = ContentUris.withAppendedId(CONTENT_URI, id);
             return returnUri;
-        } catch(Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -67,7 +68,7 @@ public class NotesProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         String id = null;
-        if(uriMatcher.match(uri) == IMAGE_ID) {
+        if (uriMatcher.match(uri) == IMAGE_ID) {
             //Delete is for one single image. Get the ID from the URI.
             id = uri.getPathSegments().get(1);
         }
@@ -78,7 +79,7 @@ public class NotesProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         String id = null;
-        if(uriMatcher.match(uri) == IMAGE_ID) {
+        if (uriMatcher.match(uri) == IMAGE_ID) {
             //Update is for one single image. Get the ID from the URI.
             id = uri.getPathSegments().get(1);
         }

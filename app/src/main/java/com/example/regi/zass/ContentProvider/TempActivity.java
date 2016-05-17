@@ -1,5 +1,7 @@
 package com.example.regi.zass.ContentProvider;
 
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,13 +25,12 @@ import android.widget.Toast;
 import com.example.regi.zass.R;
 import com.example.regi.zass.Utils.Constants;
 
-public class TempActivity extends AppCompatActivity {
+public class TempActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    private static final String PROVIDER_NAME = "androidcontentproviderdemo.androidcontentprovider.images";
-    private static final Uri CONTENT_URI = Uri.parse("content://" + PROVIDER_NAME + "/images");
 
     private ListView listView;
     private SimpleCursorAdapter adapter;
+    private static final int URL_LOADER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,21 +38,15 @@ public class TempActivity extends AppCompatActivity {
         setContentView(R.layout.activity_temp);
 
         listView = (ListView) findViewById(R.id.lstViewImages);
-
+//
         adapter = new SimpleCursorAdapter(getBaseContext(),
-                R.layout.temp_item_layout,
+                R.layout.item_layout,
                 null,
-                new String[] { Constants.PROVIDER_TITLE, Constants.PROVIDER_DATE, Constants.PROVIDER_TAG},
-                new int[] { R.id.imgTitle , R.id.imgUrl, R.id.imgDesc }, 0);
-
+                new String[] { Constants.PROVIDER_READINGTITLE, Constants.PROVIDER_DATECREATED, Constants.PROVIDER_TAGS},
+                new int[] { R.id.title , R.id.date, R.id.tag }, 0);
         listView.setAdapter(adapter);
-        refreshValuesFromContentProvider();
-    }
 
-    private void refreshValuesFromContentProvider() {
-        CursorLoader cursorLoader = new CursorLoader(getBaseContext(), CONTENT_URI, null, null, null, null);
-        Cursor c = cursorLoader.loadInBackground();
-        adapter.swapCursor(c);
+        getLoaderManager().initLoader(URL_LOADER,null,this);
     }
 
     @Override
@@ -61,13 +56,16 @@ public class TempActivity extends AppCompatActivity {
         return true;
     }
 
-    public void onClickAddImage(View view) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Constants.PROVIDER_TITLE, ((EditText) findViewById(R.id.edtTxtImageTitle)).getText().toString());
-        contentValues.put(Constants.PROVIDER_DATE , ((EditText)findViewById(R.id.edtImageUrl)).getText().toString());
-        contentValues.put(Constants.PROVIDER_TAG, ((EditText) findViewById(R.id.edtImageDesc)).getText().toString());
-        Uri uri = getContentResolver().insert(CONTENT_URI, contentValues);
-        Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
-        refreshValuesFromContentProvider();
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getBaseContext(), Constants.CONTENT_URI, null, null, null, null);
     }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {}
 }

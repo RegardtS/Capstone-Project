@@ -34,8 +34,8 @@
     <string name="add_widget">Add widget</string>
     <string name="not_a_valid_email">Not a valid email</string>
     <string name="invalid_password">Invalid password</string>
-    <string name="logging_in">Logging in...</string>
-    <string name="creating_account">Creating account...</string>
+    <string name="logging_in">Logging in…</string>
+    <string name="creating_account">Creating account…</string>
     <string name="no_account">No account?</string>
     <string name="login">Login</string>
     <string name="already_have_an_account">Already have an account?</string>
@@ -43,6 +43,10 @@
     <string name="unable_to_read_note">Unable to read note</string>
     <string name="successfully_updated">Successfully updated</string>
     <string name="successfully_created_new_note">Successfully created new note</string>
+    <string name="total_time_secs">"Total time: %1$s"</string>
+    <string name="list_of_recent_saved_notes">Recent notes</string>
+    <string name="no_data_yet">No data yet</string>
+    <string name="failed_to_sign_in">"Failed to sign in "</string>
 
 
 </resources>

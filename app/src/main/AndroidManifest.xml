@@ -39,11 +39,15 @@
             android:name=".UI.LoginActivity"
             android:theme="@style/Login.Dark" />
         <activity android:name=".UI.StartActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
+
         </activity>
 
         <receiver android:name=".Widget.AppWidget">
@@ -62,9 +66,13 @@
 
         <provider
             android:name=".ContentProvider.NotesProvider"
-            android:authorities="androidcontentproviderdemo.androidcontentprovider.images"/>
+            android:authorities="com.example.regi.zass.contentprovider.notes"/>
 
         <activity android:name=".ContentProvider.TempActivity">
+
+
+
+
 
         </activity>
     </application>

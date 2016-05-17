@@ -2,6 +2,7 @@ package com.example.regi.zass.Utils;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.regi.zass.Model.Note;
@@ -19,7 +20,7 @@ public class FirebaseUtils {
 
     public static void updateNote(Note note, String key, Context context){
         Firebase ref = new Firebase(Constants.FIREBASE_URL);
-        ref.child("activeList").child(SharedPrefsUtils.getStringPreference(context,Constants.USER_ID)).child(key).setValue(note);
+        ref.child("activeList").child(SharedPrefsUtils.getStringPreference(context.getApplicationContext(),Constants.USER_ID)).child(key).setValue(note);
         Toast.makeText(context.getApplicationContext(), R.string.successfully_updated, Toast.LENGTH_SHORT).show();
     }
 
